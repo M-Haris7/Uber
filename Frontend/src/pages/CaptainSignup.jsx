@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import { CaptainDataContext } from '../context/CapatainContext'
+import { CaptainDataContext } from '../context/CaptainContext'
 import { useNavigate } from 'react-router-dom'
-// import axios from 'axios'
+import axios from 'axios'
 
 const CaptainSignup = () => {
 
@@ -19,7 +19,7 @@ const CaptainSignup = () => {
   const [ vehicleType, setVehicleType ] = useState('')
 
 
-  // const { captain, setCaptain } = React.useContext(CaptainDataContext)
+  const { captain, setCaptain } = React.useContext(CaptainDataContext)
 
 
   const submitHandler = async (e) => {
@@ -61,13 +61,13 @@ const CaptainSignup = () => {
   return (
     <div className='py-5 px-5 h-screen flex flex-col justify-between'>
       <div>
-        <img className='w-16 mb-3' src="https://www.svgrepo.com/show/505031/uber-driver.svg" alt="" />
+        <img className='w-20 mb-3' src="https://www.svgrepo.com/show/505031/uber-driver.svg" alt="" />
 
         <form onSubmit={(e) => {
           submitHandler(e)
         }}>
 
-          <h3 className='text-lg w-full font-medium mb-2'>What's our Captain's name</h3>
+          <h3 className='text-lg w-full  font-medium mb-2'>What's our Captain's name</h3>
           <div className='flex gap-4 mb-7'>
             <input
               required
