@@ -79,25 +79,3 @@ module.exports.logoutCaptain = async (req, res, next) => {
 
     res.status(200).json({ message: 'Logout successfully' });
 }
-
-
-// {
-//     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzZjMTg5ZjU2NGY4YWMwMTQzNDY5YWUiLCJpYXQiOjE3MzUxMzc0MzksImV4cCI6MTczNTIyMzgzOX0.bOcQDyGRUhag89Jw52F6VuuQIqlaD-GzWwqFw5W_T-g",
-//     "captain": {
-//         "fullname": {
-//             "firstname": "fakir",
-//             "lastname": "captain"
-//         },
-//         "email": "fakircaptain786@gmail.com",
-//         "password": "$2b$10$9O68rlPkNB/XkQdlZfCVaO/ZkuJL0qL8ebQJiryt6/CNxpv0/gIKu",
-//         "status": "inactive",
-//         "vehicle": {
-//             "color": "white",
-//             "plate": "UP 14 BH786",
-//             "capacity": 4,
-//             "vehicleType": "car"
-//         },
-//         "_id": "676c189f564f8ac0143469ae",
-//         "__v": 0
-//     }
-// }

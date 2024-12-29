@@ -1,14 +1,18 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useGSAP } from '@gsap/react'
 import { gsap } from 'gsap'
 import { useRef } from 'react'
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'remixicon/fonts/remixicon.css'
 import LocationSearchPanel from '../components/LocationSearchPanel'
 import VehiclePanel from '../components/VehiclePanel'
 import ConfirmRide from '../components/ConfirmRide'
 import LookingForDriver from '../components/LookingForDriver'
 import WaitingForDriver from '../components/WaitingForDriver'
+import { SocketContext } from '../context/SocketContext';
+import { UserDataContext } from '../context/UserContext';
 
 const Home = () => {
   const [pickup, setPickup] = useState('')
@@ -24,12 +28,52 @@ const Home = () => {
   const [confirmRidePanel, setConfirmRidePanel] = useState(false)
   const [vehicleFound, setVehicleFound] = useState(false)
   const [waitingForDriver, setWaitingForDriver] = useState(false)
+  const [pickupSuggestions, setPickupSuggestions] = useState([]);
+  const [destinationSuggestions, setDestinationSuggestions] = useState([]);
+  const [activeField, setActiveField] = useState(null)
 
+  const { socket } = useContext(SocketContext);
+  const { user } = useContext(UserDataContext);
 
+  useEffect(() => {
+    socket.emit("join", { userType: "user", userId: user._id })
+  }, [ user ]);
+
+  const handlePickupChange = async (e) => {
+    setPickup(e.target.value)
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`, {
+            params: { input: e.target.value },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+
+        })
+        setPickupSuggestions(response.data)
+    } catch {
+        // handle error
+    }
+}
+
+const handleDestinationChange = async (e) => {
+    setDestination(e.target.value)
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/maps/get-suggestions`, {
+            params: { input: e.target.value },
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        setDestinationSuggestions(response.data)
+    } catch {
+        // handle error
+    }
+}
 
   const submitHandler = (e) => {
     e.preventDefault()
   }
+
 
   useGSAP(() => {
     if(panelOpen) {
@@ -153,7 +197,14 @@ const Home = () => {
           </form>
         </div>
         <div ref={panelRef} className='h-0 bg-white'>
-            <LocationSearchPanel setPanelOpen={setPanelOpen} setVehiclePanel={setVehiclePanel} />
+            <LocationSearchPanel 
+                setPanelOpen={setPanelOpen} 
+                setVehiclePanel={setVehiclePanel}
+                pickupSuggestions={pickupSuggestions}
+                destinationSuggestions={destinationSuggestions}
+                setPickup={setPickup}
+                setDestination={setDestination}
+            />
         </div>
       </div>
       <div ref={vehiclePanelRef} className='fixed w-full z-10 bottom-0 translate-y-full bg-white p-3 py-10 px-3 pt-12'>
