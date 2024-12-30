@@ -20,9 +20,6 @@ This is a full-stack Uber clone application built with a React frontend and a No
 - **Real-time Location Update**: Captains can update their location in real-time.
 - **Ride Start and End**: Captains can start and end rides using OTP-based confirmation.
 
-## Project Structure
-
-
 ## Installation
 
 ### Backend
