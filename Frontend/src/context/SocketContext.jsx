@@ -4,8 +4,6 @@ import { io } from 'socket.io-client';
 
 export const SocketContext = createContext();
 
-console.log('Backend URL:', import.meta.env.VITE_BASE_URL);
-
 const socket = io(`${import.meta.env.VITE_BASE_URL}`); // Replace with your server URL
 
 const SocketProvider = ({ children }) => {
