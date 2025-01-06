@@ -2,6 +2,9 @@
 
 This is a full-stack Uber clone application built with a React frontend and a Node.js/Express backend. The application allows users to register, log in, book rides, and track their rides in real-time. Captains (drivers) can also register, log in, and accept ride requests.
 
+## Demo of Project
+https://www.loom.com/share/0c5147b0010540019b676016a6841f82?sid=77526fce-34b8-4665-86d0-ff1e1ed7dccf
+
 ## Features
 
 ### User Features
